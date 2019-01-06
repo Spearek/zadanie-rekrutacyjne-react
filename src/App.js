@@ -47,9 +47,24 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Pets
-        petlist={this.state.pets}
-        />
+        <div className="sortingElements">
+          <div className="itemsLeft">
+            <h5>Sortowanie</h5>
+            <button>WIEK</button>
+            <button>IMIE</button>
+          </div>
+          <div className="itemsRight">
+            <h5>Filtry</h5>
+            <select>
+            <option value="species">GATUNKI</option>
+              <option value="cat">CAT</option>
+              <option value="dog">DOG</option>
+            </select>
+          </div>
+        </div>
+
+
+        <Pets petlist={this.state.pets}/>
       </div>
     );
   }
