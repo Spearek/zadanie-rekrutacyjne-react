@@ -1,8 +1,7 @@
 .petInfo{
-    width: 40%;
     border: 2px solid black;
     display: flex;
-    margin: 0 auto;
+    width: 100%;
     margin-bottom:5px;
 }
 
