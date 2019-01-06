@@ -3,6 +3,7 @@
     display: flex;
     width: 100%;
     margin-bottom:5px;
+    position: relative;
 }
 
 .petInfo img{
@@ -14,4 +15,13 @@
     text-align: left;
     font-size: 1.1rem;
 
+}
+
+.close{
+    position: absolute;
+    top: -75px;
+    right: -110px;
+    transform:scale(0.2);
+    cursor: pointer;
+    
 }
