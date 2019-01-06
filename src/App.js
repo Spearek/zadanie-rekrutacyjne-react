@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Pets from './components/Pets/Pets';
 
 class App extends Component {
-  constructor(props) {
+
+  state ={
+    pets:[
+      {
+        name: "Purrsloud",
+        species: "Cat",
+        favFoods: ["wet food", "dry food", "<strong>any</strong> food"],
+        birthYear: 2016,
+        photo: "https://learnwebcode.github.io/json-example/images/cat-2.jpg"
+      },
+      {
+        name: "Barksalot",
+        species: "Dog",
+        birthYear: 2008,
+        photo:  "https://learnwebcode.github.io/json-example/images/dog-1.jpg"
+      },
+      {
+        name: "Meowsalot",
+        species: "Cat",
+        favFoods: ["tuna", "catnip", "celery"],
+        birthYear: 2012,
+        photo: "https://learnwebcode.github.io/json-example/images/cat-1.jpg"
+      }
+    ]
+  }
+
+  /*constructor(props) {
     super(props);
 
     this.state = {
@@ -13,27 +39,17 @@ class App extends Component {
     fetch("http://127.0.0.1:8080/pets-data.json")
       .then(resp => resp.json())
       .then(this.setState.bind(this));
-  }
+  }*/
 
   render() {
-    console.log(this.state);
+   // console.log(this.state.pets);
+   // console.log(this.state.pets[0]);
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Pets
+        petlist={this.state.pets}
+        />
       </div>
     );
   }
