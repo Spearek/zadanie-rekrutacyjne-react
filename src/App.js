@@ -29,6 +29,15 @@ class App extends Component {
     ]
   }
 
+  
+  deletePetHandler = (petIndex) =>{
+    const newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    newPetArr.splice(petIndex,1);
+    this.setState({pets: newPetArr});
+  }
+  
+
+
   /*constructor(props) {
     super(props);
 
@@ -40,6 +49,7 @@ class App extends Component {
       .then(resp => resp.json())
       .then(this.setState.bind(this));
   }*/
+
 
   render() {
    // console.log(this.state.pets);
@@ -64,7 +74,10 @@ class App extends Component {
         </div>
 
 
-        <Pets petlist={this.state.pets}/>
+        <Pets 
+          petlist={this.state.pets}
+          click={this.deletePetHandler}
+          />
       </div>
     );
   }

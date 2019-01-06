@@ -3,10 +3,11 @@ import Pet from './Pet/Pet';
 
 const pets = (props) =>{
 
-    console.log(props.petlist);
-    let petlistManager = props.petlist.map(value=>{
+
+    let petlistManager = props.petlist.map((value,index)=>{
         return <Pet
         petDetails = {value}
+        click = {()=>props.click(index)}
         />
     });
 
