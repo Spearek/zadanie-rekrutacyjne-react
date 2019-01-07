@@ -35,6 +35,51 @@ class App extends Component {
     newPetArr.splice(petIndex,1);
     this.setState({pets: newPetArr});
   }
+
+
+  ageSortHandler = ()=>{
+    let newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    let petAges = newPetArr.map(value=>{return value.birthYear});
+    petAges.sort();
+      if(this.state.sorted){
+        petAges.reverse();
+        this.setState({sorted:false});
+    }
+    else{
+      this.setState({sorted:true});
+    }
+    let sortedPetArr =[];
+    for(let i=0;i<petAges.length;i++){
+      newPetArr.forEach(element => {
+        if(element.birthYear === petAges[i]){
+          sortedPetArr.push(element)
+        }
+      });
+    }
+    this.setState({pets:sortedPetArr});
+  }
+
+  nameSortHandler = ()=>{
+    let newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    let petNames = newPetArr.map(value=>{return value.name});
+    petNames.sort();
+      if(this.state.sorted){
+        petNames.reverse();
+        this.setState({sorted:false});
+    }
+    else{
+      this.setState({sorted:true});
+    }
+    let sortedPetArr =[];
+    for(let i=0;i<petNames.length;i++){
+      newPetArr.forEach(element => {
+        if(element.name === petNames[i]){
+          sortedPetArr.push(element)
+        }
+      });
+    }
+    this.setState({pets:sortedPetArr});
+  }
   
 
 
@@ -60,8 +105,8 @@ class App extends Component {
         <div className="sortingElements">
           <div className="itemsLeft">
             <h5>Sortowanie</h5>
-            <button>WIEK</button>
-            <button>IMIE</button>
+            <button onClick={this.ageSortHandler}>WIEK</button>
+            <button onClick={this.nameSortHandler}>IMIE</button>
           </div>
           <div className="itemsRight">
             <h5>Filtry</h5>
