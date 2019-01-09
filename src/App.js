@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Pets from './components/Pets/Pets';
+import SpeciesFilter from './components/SpeciesFilter/SpeciesFilter';
 
 class App extends Component {
 
@@ -26,14 +27,62 @@ class App extends Component {
         birthYear: 2012,
         photo: "https://learnwebcode.github.io/json-example/images/cat-1.jpg"
       }
-    ]
+    ],
+    speciesList:[],
+    displayedSPecies:[
+      {
+        name: "Purrsloud",
+        species: "Cat",
+        favFoods: ["wet food", "dry food", "<strong>any</strong> food"],
+        birthYear: 2016,
+        photo: "https://learnwebcode.github.io/json-example/images/cat-2.jpg"
+      },
+      {
+        name: "Barksalot",
+        species: "Dog",
+        birthYear: 2008,
+        photo:  "https://learnwebcode.github.io/json-example/images/dog-1.jpg"
+      },
+      {
+        name: "Meowsalot",
+        species: "Cat",
+        favFoods: ["tuna", "catnip", "celery"],
+        birthYear: 2012,
+        photo: "https://learnwebcode.github.io/json-example/images/cat-1.jpg"
+      }   
+    ],
+    displayedValue:'Gatunki'
   }
 
-  
+  componentDidMount(){
+    this.speciesListHandler();
+  }
+
   deletePetHandler = (petIndex) =>{
     const newPetArr = JSON.parse(JSON.stringify(this.state.pets));
     newPetArr.splice(petIndex,1);
     this.setState({pets: newPetArr});
+  }
+
+  speciesListHandler = () =>{
+    let list = this.state.pets.map(species=>{return species.species}).reduce((x,y)=>{
+      if(x.indexOf(y)<0) x.push(y);
+      return x;
+    },[])
+    this.setState({speciesList:list});
+  }
+
+
+  speciesDisplayHandler=(event)=>{
+    let activePet = event.target.value;
+    if (event.target.value === 'Gatunki') {
+      let pets=this.state.pets;
+      this.setState({displayedSPecies:pets,displayedValue:'Gatunki'})
+    }
+    else{
+      let displayed = this.state.pets.filter(pet=>{return pet.species === event.target.value});
+      this.setState({displayedSPecies:displayed,displayedValue:activePet})
+    }
   }
 
 
@@ -98,7 +147,6 @@ class App extends Component {
 
   render() {
    // console.log(this.state.pets);
-   // console.log(this.state.pets[0]);
 
     return (
       <div className="App">
@@ -110,17 +158,17 @@ class App extends Component {
           </div>
           <div className="itemsRight">
             <h5>Filtry</h5>
-            <select>
-            <option value="species">GATUNKI</option>
-              <option value="cat">CAT</option>
-              <option value="dog">DOG</option>
-            </select>
+            <SpeciesFilter
+              petList={this.state.speciesList}
+              list = {this.speciesListHandler}
+              changed={this.speciesDisplayHandler}
+              selectValue={this.state.displayedValue}/>
           </div>
         </div>
 
 
         <Pets 
-          petlist={this.state.pets}
+          petlist={this.state.displayedSPecies}
           click={this.deletePetHandler}
           />
       </div>
