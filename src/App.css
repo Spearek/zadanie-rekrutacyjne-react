@@ -3,6 +3,9 @@
   width: 40%;
   margin: 0 auto;
 }
+.titles{
+  font-size: 22px;
+}
 
 .sortingElements{
   display:flex;

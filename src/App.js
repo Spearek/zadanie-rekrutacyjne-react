@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Pets from './components/Pets/Pets';
 import SpeciesFilter from './components/SpeciesFilter/SpeciesFilter';
+import Modal from './components/Modal/Modal'
 
 class App extends Component {
 
@@ -154,14 +155,16 @@ class App extends Component {
 
     return (
       <div className="App">
+
         <div className="sortingElements">
           <div className="itemsLeft">
-            <h5>Sortowanie</h5>
+            <p className="titles">Sortowanie</p>
             <button onClick={this.ageSortHandler}>WIEK</button>
             <button onClick={this.nameSortHandler}>IMIE</button>
           </div>
+
           <div className="itemsRight">
-            <h5>Filtry</h5>
+            <p className="titles">Filtry</p>
             <SpeciesFilter
               petList={this.state.speciesList}
               list = {this.speciesListHandler}
@@ -175,6 +178,7 @@ class App extends Component {
           petlist={this.state.displayedSPecies}
           click={this.deletePetHandler}
           />
+          <Modal/>
       </div>
     );
   }
