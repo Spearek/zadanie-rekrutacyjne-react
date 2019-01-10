@@ -7,7 +7,7 @@ const pets = (props) =>{
     let petlistManager = props.petlist.map((value,index)=>{
         return <Pet
         petDetails = {value}
-        click = {()=>props.click(index)}
+        click = {()=>props.click(value.birthYear)}
         />
     });
 

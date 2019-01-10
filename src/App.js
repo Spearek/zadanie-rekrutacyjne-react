@@ -60,8 +60,12 @@ class App extends Component {
 
   deletePetHandler = (petIndex) =>{
     const newPetArr = JSON.parse(JSON.stringify(this.state.pets));
-    newPetArr.splice(petIndex,1);
-    this.setState({pets: newPetArr});
+    const displayedPetArr = JSON.parse(JSON.stringify(this.state.displayedSPecies));
+    let positionMainArr = newPetArr.findIndex(pet=>{return pet.birthYear === petIndex});
+    let positionDisplayedArr = displayedPetArr.findIndex(pet=>{return pet.birthYear === petIndex});
+    newPetArr.splice(positionMainArr,1);
+    displayedPetArr.splice(positionDisplayedArr,1);
+    this.setState({pets: newPetArr,displayedSPecies:displayedPetArr});
   }
 
   speciesListHandler = () =>{
@@ -87,7 +91,7 @@ class App extends Component {
 
 
   ageSortHandler = ()=>{
-    let newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    let newPetArr = JSON.parse(JSON.stringify(this.state.displayedSPecies));
     let petAges = newPetArr.map(value=>{return value.birthYear});
     petAges.sort();
       if(this.state.sorted){
@@ -105,11 +109,11 @@ class App extends Component {
         }
       });
     }
-    this.setState({pets:sortedPetArr});
+    this.setState({displayedSPecies:sortedPetArr});
   }
 
   nameSortHandler = ()=>{
-    let newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    let newPetArr = JSON.parse(JSON.stringify(this.state.displayedSPecies));
     let petNames = newPetArr.map(value=>{return value.name});
     petNames.sort();
       if(this.state.sorted){
@@ -127,7 +131,7 @@ class App extends Component {
         }
       });
     }
-    this.setState({pets:sortedPetArr});
+    this.setState({displayedSPecies:sortedPetArr});
   }
   
 
