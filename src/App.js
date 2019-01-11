@@ -52,7 +52,14 @@ class App extends Component {
         photo: "https://learnwebcode.github.io/json-example/images/cat-1.jpg"
       }   
     ],
-    displayedValue:'Gatunki'
+    displayedValue:'Gatunki',
+    newPet : [
+      {type:'Imię', value:''},
+      {type:'Wiek', value:''},
+      {type:'Gatunek', value:''},
+      {type:'Url zdjęcia', value:''},
+      {type:'Jedzenie', value:''}
+    ]
   }
 
   componentDidMount(){
@@ -135,6 +142,43 @@ class App extends Component {
     this.setState({displayedSPecies:sortedPetArr});
   }
   
+  inputChangeHandler = (event,type) =>{
+
+    const inputIndex = this.state.newPet.findIndex(p =>{
+      return p.type === type;
+    });
+    const input = {
+      ...this.state.newPet[inputIndex]
+    };
+    input.value = event.target.value;
+
+    const newPetList = [...this.state.newPet];
+    newPetList[inputIndex] = input;
+
+
+    this.setState({newPet: newPetList});
+
+
+  }
+
+  addingPetHandler = () =>{
+    const adopted = {
+      name: this.state.newPet[0].value,
+      species: this.state.newPet[2].value,
+      birthYear: this.state.newPet[1].value,
+      photo: this.state.newPet[3].value
+    }
+    const newPetArr = JSON.parse(JSON.stringify(this.state.pets));
+    newPetArr.push(adopted);
+
+    let list = newPetArr.map(species=>{return species.species}).reduce((x,y)=>{
+      if(x.indexOf(y)<0) x.push(y);
+      return x;
+    },[])
+    this.setState({pets:newPetArr,displayedSPecies:newPetArr,speciesList:list});
+
+
+  }
 
 
   /*constructor(props) {
@@ -178,7 +222,10 @@ class App extends Component {
           petlist={this.state.displayedSPecies}
           click={this.deletePetHandler}
           />
-          <Modal/>
+          <Modal
+          newPet={this.state.newPet}
+          changed={this.inputChangeHandler}
+          updated={this.addingPetHandler}/>
       </div>
     );
   }
